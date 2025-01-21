@@ -1,0 +1,29 @@
+name: Deploy to Staging
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build project
+      run: npm run build
+
+    - name: Deploy to Staging
+      env:
+        SERVER: ${{ secrets.STAGING_SERVER }}
+        USER: ${{ secrets.STAGING_USER }}
+        SSH_KEY: ${{ secrets.STAGING_SSH_KEY }}
+      run: |
+        ssh -i $SSH_KEY $USER@$SERVER "mkdir -p /var/www/shesha-ide"
+        scp -i $SSH_KEY -r ./dist/* $USER@$SERVER:/var/www/shesha-ide/
