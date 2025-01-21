@@ -1,0 +1,10 @@
+{
+  "name": "shesha-ide",
+  "version": "0.1.0",
+  "description": "SQPN IDE",
+  "main": "index.js",
+  "repository": "https://societyfordialecticalrhetoric.com/",
+  "author": "Shesha-Developer",
+  "license": "MIT",
+  "private": false
+}
