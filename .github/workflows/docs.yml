@@ -1,0 +1,25 @@
+name: Update Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'docs/**'
+
+jobs:
+  sync-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Sync Docs to Wiki
+      run: |
+        cd docs
+        git init
+        git remote add wiki https://github.com/your-repo/shesha-ide.wiki.git
+        git add .
+        git commit -m "Update documentation"
+        git push -u wiki master --force
